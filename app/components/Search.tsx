@@ -7,7 +7,8 @@ const Search = () => {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<any[]>([]);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e:React.FormEvent) => {
+    e.preventDefault()
     try {
       const data = await searchBooks(query);
       console.log(data.docs)
@@ -26,10 +27,10 @@ const Search = () => {
 
   return (
     <div className="">
-      <form className="w-max ring-1 mt-6 rounded-[10px] ring-gray-300 cursor-pointer ">
+      <form className="w-max ring-1 mt-6 rounded-[10px] ring-gray-300 cursor-pointer " onSubmit={handleSearch}>
         <div className="flex justify-between items-center ">
           <input
-            type="search"
+            value={query}
             placeholder="Search by Title/Author"
             className=" p-4 text-2xl text-black bg-white rounded-[10px]"
             onChange={(e) => setQuery(e.target.value)}
@@ -38,7 +39,7 @@ const Search = () => {
           <button
             type="submit"
             className="px-4  text-white cursor-pointer"
-            onClick={handleSearch}
+            onSubmit={handleSearch}
           >
             <FaSearch className="" />{" "}
           </button>
@@ -47,7 +48,7 @@ const Search = () => {
 
       <ul className="">
         {books.map((book, index) => (
-          <li key={index} className="">
+          <li key={index} className="text-black">
             <h3>{book.title}</h3>
             <p>Author:{book.author_name?.join(",")}</p>
             {book.cover_i && (
