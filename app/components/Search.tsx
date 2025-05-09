@@ -46,17 +46,19 @@ const Search = () => {
         </div>
       </form>
 
-      <ul className="">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {books.map((book, index) => (
-          <li key={index} className="text-black">
-            <h3>{book.title}</h3>
+          <li key={index} className="text-black border rounded shadow cursor-pointer flex flex-col items-center">
+            <h3 className="font-semibold">{book.title}</h3>
             <p>Author:{book.author_name?.join(",")}</p>
-            {book.cover_i && (
+            {book.cover_i ? (
               <img
-                src={`https://covers.openlibrary.org/b/id/${book.cover_}-M.jpg`}
+                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
                 alt={book.title}
-                className='w-32 mt-2'
+                className='w-32 mt-2 h-auto'
               />
+            ): (
+              <div className="w-32 h-48 mt-2 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">Image Not Available</div>
             )}
           </li>
         ))}
